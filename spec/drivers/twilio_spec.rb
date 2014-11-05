@@ -59,5 +59,18 @@ describe SmsSpec do
       expect(current_text_message.from).to eq('+14159341234')
     end
 
+    it 'allows the account_sid and auth_token to be set via the block configuration' do
+      account_sid = 'ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+
+      Twilio.configure do |config|
+        config.account_sid = account_sid
+        config.auth_token = 'yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
+      end
+
+      @client = Twilio::REST::Client.new
+
+      expect(@client.account.sid).to be(account_sid)
+    end
+
   end
 end
